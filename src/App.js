@@ -4,7 +4,9 @@ import styled from "styled-components";
 import Nav from "./nav";
 import Route from "./route";
 
-const AppContainer = styled.div``;
+const AppContainer = styled.div`
+  width: 100vw;
+`;
 
 function App() {
   return (

@@ -53,22 +53,27 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+html {
+  width: 100vw;
+}
+body {
+  width: 100vw;
+  box-sizing: border-box;
+}
 `;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  <Auth0Provider
+    domain="dev-2wk7bf3g2r8n2hzq.us.auth0.com"
+    clientId="qlLAZyrO6V4T0y94Wba39pH618NXPR5B"
+    authorizationParams={{
+      redirect_uri: window.location.origin
+    }}
+  >
     <GlobalStyle />
-    <Auth0Provider
-      domain="dev-2wk7bf3g2r8n2hzq.us.auth0.com"
-      clientId="qlLAZyrO6V4T0y94Wba39pH618NXPR5B"
-      authorizationParams={{
-        redirect_uri: window.location.origin
-      }}
-    >
-      <App />
-    </Auth0Provider>
-  </React.StrictMode>
+    <App />
+  </Auth0Provider>
 );
 
 
