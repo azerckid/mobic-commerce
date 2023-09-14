@@ -3,6 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import styled from "styled-components";
 import Nav from "./nav";
 import Route from "./route";
+import Footer from "./components/Footer";
 
 const AppContainer = styled.div`
   width: 100vw;
@@ -10,10 +11,11 @@ const AppContainer = styled.div`
 
 function App() {
   return (
-    <AppContainer >
+    <AppContainer>
       <BrowserRouter>
         <Nav />
         <Route />
+        <Footer />
       </BrowserRouter>
     </AppContainer>
   );
