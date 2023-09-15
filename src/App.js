@@ -12,6 +12,8 @@ const AppContainer = styled.div`
 `;
 
 function App() {
+  const [close, setClose] = useState(false);
+  const [detail, setDetail] = useState([]);
   const [product, setProduct] = useState(ProductDetail);
   const searchBtn = (product) => {
     const change = ProductDetail.filter((item) => {
@@ -19,11 +21,22 @@ function App() {
     });
     setProduct(change);
   };
+  const view = (item) => {
+    setDetail([{ ...item }]);
+    setClose(true);
+  };
   return (
     <AppContainer>
       <BrowserRouter>
         <Nav searchBtn={searchBtn} />
-        <Route product={product} setProduct={setProduct} />
+        <Route
+          product={product}
+          setProduct={setProduct}
+          detail={detail}
+          view={view}
+          close={close}
+          setClose={setClose}
+        />
         <Footer />
       </BrowserRouter>
     </AppContainer>

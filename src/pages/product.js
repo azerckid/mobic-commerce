@@ -4,7 +4,11 @@ import styled from "styled-components";
 import ProductDetail from "../components/productDetail";
 
 import { BsEye } from "react-icons/bs";
-import { AiOutlineHeart, AiOutlineShoppingCart } from "react-icons/ai";
+import {
+  AiOutlineCloseCircle,
+  AiOutlineHeart,
+  AiOutlineShoppingCart,
+} from "react-icons/ai";
 
 const ProductContainer = styled.div``;
 const ProductWrapper = styled.div`
@@ -127,7 +131,86 @@ const HomeProductIcon = styled.div`
   }
 `;
 
-const Product = ({ product, setProduct }) => {
+const ProductDetailModal = styled.div`
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const ProductDetailContainer = styled.div`
+  width: 50vw;
+  height: 50vh;
+  position: fixed;
+  top: 30%;
+  left: 25%;
+  background-color: white;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #e5e5e5;
+  border-radius: 16px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 12px;
+`;
+
+const CloseBtn = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 2rem;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+`;
+const ProductDetailBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  div {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 200px;
+      height: 200px;
+    }
+    h4 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 3cqi;
+    }
+    p {
+      font-size: 1rem;
+      font-weight: 400;
+      text-transform: capitalize;
+      margin-bottom: 2rem;
+    }
+    button {
+      width: 50%;
+      padding: 2%;
+      border: none;
+      outline: none;
+      background-color: hotpink;
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      cursor: pointer;
+      &:hover {
+        background-color: dodgerblue;
+        transition: 0.5s;
+      }
+    }
+  }
+`;
+
+const Product = ({ product, setProduct, detail, view, close, setClose }) => {
   const filterProduct = (cat) => {
     const filterData = ProductDetail.filter((item) => item.cat === cat);
     setProduct(filterData);
@@ -135,8 +218,38 @@ const Product = ({ product, setProduct }) => {
   const allProducts = () => {
     setProduct(ProductDetail);
   };
+
   return (
     <ProductContainer>
+      {close ? (
+        <ProductDetailModal>
+          <ProductDetailContainer>
+            <CloseBtn onClick={() => setClose(false)}>
+              <AiOutlineCloseCircle />
+            </CloseBtn>
+            {detail.map((item) => {
+              return (
+                <ProductDetailBox key={item.id}>
+                  <div>
+                    <img src={item.img} alt="" />
+                  </div>
+                  <div>
+                    <h4>{item.Title}</h4>
+                    <p>{item.cat}</p>
+                    <p>
+                      A screen Everyone will love: whether your family is
+                      streaming or video chatting with friends
+                    </p>
+                    <p>{item.Price}</p>
+                    <button>Add to cart</button>
+                  </div>
+                </ProductDetailBox>
+              );
+            })}
+          </ProductDetailContainer>
+        </ProductDetailModal>
+      ) : null}
+
       <h2># Products</h2>
       <p>Home . Products</p>
       <ProductWrapper>
@@ -169,7 +282,7 @@ const Product = ({ product, setProduct }) => {
                         <li>
                           <AiOutlineShoppingCart />
                         </li>
-                        <li>
+                        <li onClick={() => view(item)}>
                           <BsEye />
                         </li>
                         <li>
