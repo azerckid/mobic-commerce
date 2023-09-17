@@ -6,8 +6,9 @@ import About from "./pages/about";
 import Product from "./pages/product";
 import Contact from "./pages/contact";
 import NotFound from "./pages/notfound";
+import Cart from "./components/cart";
 
-const Rout = ({ product, setProduct, detail, view, close, setClose }) => {
+const Rout = ({ product, setProduct, detail, view, close, setClose, cart, setCart, addtoCart }) => {
   return (
     <>
       <Routes>
@@ -19,6 +20,7 @@ const Rout = ({ product, setProduct, detail, view, close, setClose }) => {
               view={view}
               close={close}
               setClose={setClose}
+              addtoCart={addtoCart}
             />
           }
         />
@@ -34,9 +36,12 @@ const Rout = ({ product, setProduct, detail, view, close, setClose }) => {
               view={view}
               close={close}
               setClose={setClose}
+              addtoCart={addtoCart}
             />
           }
         />
+        <Route path="/cart" element={<Cart cart={cart} setCart={setCart} />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

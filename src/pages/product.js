@@ -1,4 +1,5 @@
 import React from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 
 import ProductDetail from "../components/productDetail";
@@ -210,7 +211,8 @@ const ProductDetailBox = styled.div`
   }
 `;
 
-const Product = ({ product, setProduct, detail, view, close, setClose }) => {
+const Product = ({ product, setProduct, detail, view, close, setClose, addtoCart }) => {
+  const { loginWithRedirect, isAuthenticated } = useAuth0();
   const filterProduct = (cat) => {
     const filterData = ProductDetail.filter((item) => item.cat === cat);
     setProduct(filterData);
@@ -279,9 +281,16 @@ const Product = ({ product, setProduct, detail, view, close, setClose }) => {
                     <HomeProductImage>
                       <img src={item.img} alt="" />
                       <HomeProductIcon>
-                        <li>
-                          <AiOutlineShoppingCart />
-                        </li>
+                        {
+                          isAuthenticated ? (<li onClick={() => addtoCart(item)}>
+                            <AiOutlineShoppingCart />
+                          </li>)
+                            :
+                            (<li onClick={() => loginWithRedirect()}>
+                              <AiOutlineShoppingCart />
+                            </li>)
+                        }
+
                         <li onClick={() => view(item)}>
                           <BsEye />
                         </li>

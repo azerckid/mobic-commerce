@@ -12,6 +12,7 @@ const AppContainer = styled.div`
 `;
 
 function App() {
+  const [cart, setCart] = useState([]);
   const [close, setClose] = useState(false);
   const [detail, setDetail] = useState([]);
   const [product, setProduct] = useState(ProductDetail);
@@ -25,6 +26,22 @@ function App() {
     setDetail([{ ...item }]);
     setClose(true);
   };
+
+  const exist = (id) => {
+    return cart.find((item) => {
+      return item.id === id;
+    });
+  };
+  const addtoCart = (item) => {
+
+    if (exist(item.id)) {
+      alert("Item already added to cart");
+      return;
+    }
+    setCart([...cart, { ...item, qty: 1 }]);
+    alert("Item added to cart");
+  };
+
   return (
     <AppContainer>
       <BrowserRouter>
@@ -36,6 +53,9 @@ function App() {
           view={view}
           close={close}
           setClose={setClose}
+          cart={cart}
+          setCart={setCart}
+          addtoCart={addtoCart}
         />
         <Footer />
       </BrowserRouter>

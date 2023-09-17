@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 import { BsArrowRight, BsCurrencyDollar, BsEye } from "react-icons/bs";
 import { FiTruck } from "react-icons/fi";
@@ -304,7 +305,8 @@ const ProductDetailBox = styled.div`
   }
 `;
 
-const Home = ({ detail, view, close, setClose }) => {
+const Home = ({ detail, view, close, setClose, addtoCart }) => {
+  const { loginWithRedirect, isAuthenticated } = useAuth0();
   // eslint-disable-next-line
   const [homeProducts, setHomeProducts] = useState(HomeProduct);
   return (
@@ -445,9 +447,15 @@ const Home = ({ detail, view, close, setClose }) => {
                 <HomeProductImage>
                   <img src={item.img} alt={item.name}></img>
                   <HomeProductIcon>
-                    <li>
-                      <AiOutlineShoppingCart />
-                    </li>
+                    {
+                      isAuthenticated ? (<li onClick={() => addtoCart(item)}>
+                        <AiOutlineShoppingCart />
+                      </li>)
+                        :
+                        (<li onClick={() => loginWithRedirect()}>
+                          <AiOutlineShoppingCart />
+                        </li>)
+                    }
                     <li onClick={() => view(item)}>
                       <BsEye />
                     </li>
