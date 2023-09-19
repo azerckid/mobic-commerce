@@ -35,6 +35,8 @@ const MainHeader = styled.div`
   border-bottom: 1px solid #e5e5e5;
 `;
 const Logo = styled.div`
+  width: 120px;
+  height: 60px;
   margin-left: 30px;
   font-size: 32px;
   font-weight: 900;
@@ -162,7 +164,7 @@ const Nav = ({ searchBtn }) => {
       </TopMessage>
       <MainHeader>
         <Logo>
-          <div>M.mall</div>
+          <img src="./img/mobicusShopLogo.svg" alt="logo" />
         </Logo>
         <SearchBox>
           <SearchInput

@@ -99,7 +99,7 @@ const Footer = () => {
       <FooterBox>
         <Foot>
           <FooterLogo>
-            <img src="./img/logo.svg" alt="logo" />
+            <img src="./img/mobicusShopLogo.svg" alt="logo" />
             <FooterDetail>
               <p>© 2021 Mobic. All Rights Reserved</p>
             </FooterDetail>
